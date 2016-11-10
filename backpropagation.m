@@ -1,4 +1,4 @@
-function [ w ] = backpropagation( x,yp, w, iters )
+function [ w ] = backpropagation( x,yp, w, filters,iters )
     % Apply backpropagation to the CNN
     %
     % x : training set
@@ -12,7 +12,7 @@ function [ w ] = backpropagation( x,yp, w, iters )
     for i=1:iters        
         for j=1:length(x)
             % get current classification
-            [y,h] = classify(x{j},w);
+            [y,h] = classify(x{j},w,filters);
             % apply a backprop step
             w = backwardStep(h,y,yp{j},w);
             y

@@ -1,8 +1,8 @@
 function [ filters ] = genFilters()
 %GENFILTERS Generate filter for convolution
 
-    MIN_VAL = 0;
-    MAX_VAL = 63;
+    MIN_VAL = -1;
+    MAX_VAL = 1;
 
     filterLdiag = ones(3,3)*MIN_VAL;
     filterLdiag(1,1) = MAX_VAL;

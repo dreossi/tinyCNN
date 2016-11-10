@@ -20,7 +20,7 @@ function [score,lay] = classify(x,w, filters)
     lay = convolutionLayer(lay,filters);    
     plotLayer(lay,2,NUM_LAYS,SCALE,'conv');
     
-    yo = lay{1}
+    %yo = lay{1}
     
     lay = reLuLayer(lay);
     plotLayer(lay,3,NUM_LAYS,SCALE,'relu');

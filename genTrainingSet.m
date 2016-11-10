@@ -1,8 +1,8 @@
 function [ x,y ] = genTrainingSet()
 %GENTRAININGSET Generate a training set of corsses
 
-    MIN_VAL = 0;
-    MAX_VAL = 63;    
+    MIN_VAL = -1;
+    MAX_VAL = 1;    
 
     size = 9;
     background = ones(size,size)*MIN_VAL;   % Init black background
@@ -51,14 +51,14 @@ function [ x,y ] = genTrainingSet()
     x{5} = pic;
     y{5} = 0;
     
-    % Low-right X
-    pic = background;
-    for i=9:-1:3
-        pic(i,i) = MAX_VAL;
-        pic(i,2+i) = MAX_VAL;
-    end
-    x{6} = pic;
-    y{6} = 0;
+%     % Low-right X
+%     pic = background;
+%     for i=9:-1:3
+%         pic(i,i) = MAX_VAL;
+%         pic(i,2+i) = MAX_VAL;
+%     end
+%     x{6} = pic;
+%     y{6} = 0;
     
 end
 
