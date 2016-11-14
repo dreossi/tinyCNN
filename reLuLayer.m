@@ -10,3 +10,10 @@ function [ relu_x ] = reLuLayer( x )
     end
 end
 
+function [ pic ] = reLu( pic )
+%RELU Rectified linear unit
+    pic = max(pic,0);
+end
+
+
+

@@ -1,5 +1,8 @@
-function [ x,y ] = genTrainingSet()
+function [ X,Y ] = genTrainingSet(num_examples, positive)
 %GENTRAININGSET Generate a training set of corsses
+    %
+    % num_example : number of training examples
+    % pos : positive/negative (i.e., crosses or random pictures)
 
     MIN_VAL = -1;
     MAX_VAL = 1;    
@@ -7,58 +10,36 @@ function [ x,y ] = genTrainingSet()
     size = 9;
     background = ones(size,size)*MIN_VAL;   % Init black background
     
-    % Centered X
-    pic = background;
-    for i=2:8
-        pic(i,i) = MAX_VAL;
-        pic(size+1-i,i) = MAX_VAL;
+    X = {};
+    Y = {};
+    
+    % generate crosses
+    for i=1:num_examples
+        
+        pic = background;      
+        
+        if positive
+            len = randi([5 size]);
+            x = randi([1 size-len+1]);
+            y = randi([1 size-len+1]);       
+            j = 0;        
+            while j<len %&& x<=size && y<=size
+                k = x+j;
+                h = x+len-j-1;
+                pic(k,k) = MAX_VAL;
+                pic(k,h) = MAX_VAL;
+                j = j+1;            
+            end
+            Y{end+1} = 1;
+        else    
+            % Generate random pictures
+            num_rnd_px = randi([1 5]);
+            for j=1:num_rnd_px
+                pic(randi([1 9]),randi([1 9])) = MAX_VAL;
+            end
+            Y{end+1} = 0;      
+        end        
+        X{end+1} = pic;
     end    
-    x{1} = pic;
-    y{1} = 1;
-    
-    % Up-left X
-    pic = background;
-    for i=1:7
-        pic(i,i) = MAX_VAL;
-        pic(i,8-i) = MAX_VAL;
-    end
-    x{2} = pic;
-    y{2} = 1;
-    
-    % Tiny X
-    pic = background;
-    for i=4:6
-        pic(i,i) = MAX_VAL;
-        pic(size+1-i,i) = MAX_VAL;
-    end
-    x{3} = pic;
-    y{3} = 1;
-    
-    % Square
-    pic = background;
-    pic(2,2:8) = MAX_VAL;
-    pic(8,2:8) = MAX_VAL;
-    pic(2:8,2) = MAX_VAL;
-    pic(2:8,8) = MAX_VAL;
-    x{4} = pic;
-    y{4} = 0;
-    
-    % Random
-    pic = background;
-    for i=1:10
-        pic(randi([1 9]),randi([1 9])) = MAX_VAL;
-    end
-    x{5} = pic;
-    y{5} = 0;
-    
-%     % Low-right X
-%     pic = background;
-%     for i=9:-1:3
-%         pic(i,i) = MAX_VAL;
-%         pic(i,2+i) = MAX_VAL;
-%     end
-%     x{6} = pic;
-%     y{6} = 0;
-    
 end
 
